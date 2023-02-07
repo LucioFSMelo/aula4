@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-7">
+        <input type="text" name='nome' id='nome' class="form-control" placeholder="nome">
+        <label for="nome"></label>
+      </div>
+      <div class="col">
+        <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" >
+        <label for="email"></label>
+      </div>
+      <div class="col">
+        <input type="tel" name='telefone' id='telefone' class="form-control" placeholder="telefone">
+        <label for="telefone"></label>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </div>
+    </div>
+  </form>
+
+
+{% endblock %}
