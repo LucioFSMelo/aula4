@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from main.forms import AlunoForm, redirect
+from main.forms import AlunoForm
 from .models import Aluno
 
 def alunoView(request):
@@ -31,4 +31,4 @@ def newAluno(request):
             return redirect('/')
     else:
         form = AlunoForm()
-    return render(request, 'main/add_aluno.html', 'form':form)
+    return render(request, 'main/add_aluno.html', {'form':form})

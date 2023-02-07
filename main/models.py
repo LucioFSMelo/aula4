@@ -6,7 +6,7 @@ class Aluno(models.Model):
     telefone = models.CharField(null=True, blank=True, max_length=15)
     email = models.EmailField()
     data_nascimento = models.DateField()
-    descriptions = models.TextField()
+    description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
