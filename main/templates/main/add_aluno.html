@@ -37,4 +37,29 @@
         <input type='submit' class='bnt bnt-success' valeu='Salvar'>
     </form>
 </div>
+
+<script>
+    function cadastrar(){
+        var varificar = document.getElementById('telefone', 'nome').value;
+        let e = document.getElementById('email').value;
+        let result = e.includes('@');
+        if (verificar == '' || result == false) {
+            alert('Preencha todos os campos')
+        } 
+        else {
+            alert('Cadastrado com sucesso')
+        }
+    }
+    const handlePhone = (event) => {
+        let input = event.target
+        input.value = phoneMask(input.value)
+    }
+    const phoneMask = (value) => {
+        if (!value) return ""
+        value = value.replace(/\D/g, '')
+        value = value.replace(/(\d{2})(\d)/, "($1) $2")
+        value = value.replace(/(\d)(\d{4})$/, "$1-$2")
+        return value
+    }
+</script>
 {% endblock %}

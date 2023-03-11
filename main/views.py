@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from main.forms import AlunoForm
 from .models import Aluno
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def alunoView(request):
-    alunos = Aluno.objects.all()
+    alunos = Aluno.objects.all().filter(user=request.user) #VAi dar erro se entrar sem logar por isso usa o filter
     return render(request, 'main/list.html', {'alunos':alunos})
 
 def alunoIDview(request, id):
@@ -21,6 +23,7 @@ def exemplo(request):
         print(name, email, telefone)
     return render(request, 'main/indexx.html')
 
+@login_required
 def newAluno(request):
     if request.method == 'POST':
         form = AlunoForm(request.POST)
@@ -32,3 +35,24 @@ def newAluno(request):
     else:
         form = AlunoForm()
     return render(request, 'main/add_aluno.html', {'form':form})
+
+
+def editAluno(request, id):
+    aluno = get_object_or_404(Aluno, pk=id)
+    form = AlunoForm(instance=aluno)
+
+    if(request.method == "POST"):
+        form = AlunoForm(request.POST, instance=aluno)
+
+        if(form.is_valid()):
+            aluno.save()
+            return redirect('/')
+        else:
+            return render(request, 'main/edit_aluno.html', {'form': form, 'aluno': aluno})
+    else:
+        return render(request, 'main/edit_aluno.html', {'form': form, 'aluno': aluno})
+
+def deleteAluno(request, id):
+    aluno = get_object_or_404(Aluno, pk=id)
+    aluno.delete()
+    return redirect('/')
